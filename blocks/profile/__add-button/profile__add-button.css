@@ -1,0 +1,9 @@
+.profile__add-button {
+  grid-area: button;
+  width: 150px;
+  max-height: 50px;
+  background-color: #000;
+  border: 2px solid #fff;
+  margin: 35px 0;
+  justify-self: end;
+}

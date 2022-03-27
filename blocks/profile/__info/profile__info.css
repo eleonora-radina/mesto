@@ -1,0 +1,8 @@
+.profile__info {
+  margin: auto 0 auto 30px;
+  color: #fff;
+  max-width: 336px;
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+}
