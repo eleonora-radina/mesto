@@ -6,3 +6,10 @@
   display: flex;
   flex-direction: column;
 }
+
+@media (max-width: 785px) {
+  .profile__info {
+    margin: 0 auto 36px;
+    align-items: center;
+  }
+}

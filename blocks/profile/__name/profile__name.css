@@ -6,3 +6,10 @@
   margin: 0;
   padding: 0;
 }
+
+@media (max-width: 590px) {
+  .profile__name {
+    font-size: 27px;
+    line-height: 1.22;
+  }
+}

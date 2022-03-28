@@ -1,3 +1,9 @@
 .profile__add-logo {
     margin-top: 4px;
 }
+
+@media (max-width: 590px) {
+  .profile__add-logo {
+    max-width: 16px;
+  }
+}

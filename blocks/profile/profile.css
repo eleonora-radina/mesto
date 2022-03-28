@@ -6,3 +6,29 @@
   "avatar info button";
   grid-template-columns: 120px auto auto;
 }
+
+@media (max-width: 900px) {
+  .profile {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+
+@media (max-width: 785px) {
+  .profile {
+    grid-template-areas: 
+    "avatar"
+    "info"
+    "button";
+    grid-template-columns: auto;
+    margin-top: 0;
+    margin-bottom: 36px;
+  }
+}
+
+@media (max-width: 425px) {
+  .profile {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
