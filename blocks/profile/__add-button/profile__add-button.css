@@ -6,6 +6,12 @@
   border: 2px solid #fff;
   margin: 35px 0;
   justify-self: end;
+  transition: opacity 0.3s;  
+  cursor: pointer;
+}
+
+.profile__add-button:hover {
+  opacity: 0.5;
 }
 
 @media (max-width: 785px) {
