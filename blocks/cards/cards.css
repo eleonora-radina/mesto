@@ -7,7 +7,7 @@
   justify-content: space-around;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   .cards {
     margin-left: 50px;
     margin-right: 50px;

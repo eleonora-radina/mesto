@@ -1,15 +1,16 @@
 .profile__edit-button {
-  max-width: 24px;
-  max-height: 24px;
-  background-color: #000;
+  width: 24px;
+  height: 24px;
+  margin: 15px 0 0 18px;
+  background: #000 url('../../../images/pen.svg') center no-repeat;
+  background-size: 10px 10px;
   border: 1px solid #fff;
-  margin: 15px 0 0 18px; 
-  transition: opacity 0.3s;  
+  transition: opacity 0.3s;
   cursor: pointer;
 }
 
 .profile__edit-button:hover {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 @media (max-width: 590px) {
