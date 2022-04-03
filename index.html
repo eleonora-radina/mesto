@@ -10,7 +10,6 @@
   <body class="page">
     <header class="header">
       <img class="header__logo" src="./images/logo.svg" alt="Логотип проекта Место">
-      <hr class="header__line">
     </header>
     
     <main class="content">
@@ -19,60 +18,60 @@
         <div class="profile__info">
           <div class="profile__name-zone">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button"></button>
+            <button class="profile__edit-button" type="button" aria-label="Редактировать"></button>
           </div>
           <p class="profile__about">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" type="button" aria-label="Добавить"></button>
       </section>
 
       <section class="elements">
         <ul class="cards">
-          <li class="cards__item">
-            <img class="cards__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-            <div class="cards__description">
-              <h2 class="cards__title">Карачаевск</h2>
-              <button class="cards__like"></button>
+          <li class="card">
+            <img class="card__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
+            <div class="card__description">
+              <h2 class="card__title">Карачаевск</h2>
+              <button class="card__like" type="button" aria-label="Лайк"></button>
             </div>
           </li>
           
-          <li class="cards__item">
-            <img class="cards__image" src="./images/elbrus.png" alt="Гора Эльбрус">
-            <div class="cards__description">
-              <h2 class="cards__title">Гора Эльбрус</h2>
-              <button class="cards__like"></button>
+          <li class="card">
+            <img class="card__image" src="./images/elbrus.png" alt="Гора Эльбрус">
+            <div class="card__description">
+              <h2 class="card__title">Гора Эльбрус</h2>
+              <button class="card__like" type="button" aria-label="Лайк"></button>
             </div>
           </li>
           
-          <li class="cards__item">
-            <img class="cards__image" src="./images/dombay.png" alt="Домбай">
-            <div class="cards__description">
-              <h2 class="cards__title">Домбай</h2>
-              <button class="cards__like"></button>
+          <li class="card">
+            <img class="card__image" src="./images/dombay.png" alt="Домбай">
+            <div class="card__description">
+              <h2 class="card__title">Домбай</h2>
+              <button class="card__like" type="button" aria-label="Лайк"></button>
             </div>
           </li>
 
-          <li class="cards__item">
-            <img class="cards__image" src="./images/elbrus2.png" alt="Гора Эльбрус">
-            <div class="cards__description">
-              <h2 class="cards__title">Гора Эльбрус</h2>
-              <button class="cards__like"></button>
+          <li class="card">
+            <img class="card__image" src="./images/elbrus2.png" alt="Гора Эльбрус">
+            <div class="card__description">
+              <h2 class="card__title">Гора Эльбрус</h2>
+              <button class="card__like" type="button" aria-label="Лайк"></button>
             </div>
           </li>
 
-          <li class="cards__item">
-            <img class="cards__image" src="./images/dombay2.png" alt="Домбай">
-            <div class="cards__description">
-              <h2 class="cards__title">Домбай</h2>
-              <button class="cards__like"></button>
+          <li class="card">
+            <img class="card__image" src="./images/dombay2.png" alt="Домбай">
+            <div class="card__description">
+              <h2 class="card__title">Домбай</h2>
+              <button class="card__like" type="button" aria-label="Лайк"></button>
             </div>
           </li>
 
-          <li class="cards__item">
-            <img class="cards__image" src="./images/karachaevsk2.jpg" alt="Карачаево-Черкесия">
-            <div class="cards__description">
-              <h2 class="cards__title">Карачаево-Черкесия</h2>
-              <button class="cards__like"></button>
+          <li class="card">
+            <img class="card__image" src="./images/karachaevsk2.jpg" alt="Карачаево-Черкесия">
+            <div class="card__description">
+              <h2 class="card__title">Карачаево-Черкесия</h2>
+              <button class="card__like" type="button" aria-label="Лайк"></button>
             </div>
           </li>
         </ul>
@@ -85,12 +84,12 @@
     
   <div class="popup">
     <div class="popup__container">
-      <button class="popup__close-button" type="button"></button>
+      <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
-      <form class="popup__form">
+      <form class="popup__form" name="edit-profile-form">
         <input class="popup__form-item popup__form-item_el_name" type="text" placeholder="Ваше имя" name="name" required autocomplete="off">
         <input class="popup__form-item popup__form-item_el_about" type="text" placeholder="О себе" name="about" required autocomplete="off">
-        <button class="popup__save-button popup__save-button_action_save" type="submit">Сохранить</button>
+        <button class="popup__save-button" type="submit" aria-label="Сохранить">Сохранить</button>
       </form>
     </div>
   </div>

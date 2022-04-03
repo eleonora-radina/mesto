@@ -2,7 +2,7 @@
   width: 24px;
   height: 24px;
   margin: 15px 0 0 18px;
-  background: #000 url('../../../images/pen.svg') center no-repeat;
+  background: transparent url('../../../images/pen.svg') center no-repeat;
   background-size: 10px 10px;
   border: 1px solid #fff;
   transition: opacity 0.3s;
