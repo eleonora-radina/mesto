@@ -1,16 +1,3 @@
-let editLink = document.querySelector('.profile__edit-button');
-let popupWindow = document.querySelector('.popup');
-let popupCloseButton = document.querySelector('.popup__close-button');
-let formElement = document.querySelector('.popup__form');
-let nameInput =  document.querySelector('.popup__form-item_el_name');
-let aboutInput = document.querySelector('.popup__form-item_el_about');
-let profileName = document.querySelector('.profile__name');
-let profileAbout = document.querySelector('.profile__about');
-
-function openPopUp() {
-  popupWindow.classList.add('popup_opened');
-  nameInput.value = profileName.textContent;
-  aboutInput.value = profileAbout.textContent;
 const initialCards = [
   {
     name: 'Архыз',
@@ -85,20 +72,56 @@ function render() {
   const html = initialCards.map(getElement);
   listContainer.append(...html);
 }
+
+function likeCard(evt) {
+  evt.target.classList.toggle('card__like_active');
 }
 
-function closePopUp() {
-  popupWindow.classList.remove('popup_opened');
+function removeCard(evt) {
+  evt.target.closest('.card').remove();
 }
 
-// Обработчик «отправки» формы
-function formSubmitHandler(evt) {
+function openPopUp(popup) {
+  popup.classList.add('popup_opened');
+}
+
+function closePopUp(popup) {
+  popup.classList.remove('popup_opened');
+}
+
+
+
+function handlerEditForm(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileAbout.textContent = aboutInput.value;
-  closePopUp();
+  closePopUp(profilePopUp);
 }
 
-editLink.addEventListener('click', openPopUp);
-popupCloseButton.addEventListener('click', closePopUp);
-formElement.addEventListener('submit', formSubmitHandler);render();
+function handlerAddCard(evt) {
+  evt.preventDefault();
+  const titleInput =  document.querySelector('.popup__form-item_el_title').value;
+  const linkInput = document.querySelector('.popup__form-item_el_link').value;
+  const element = getElement({name: titleInput, link: linkInput});
+  listContainer.prepend(element);
+  evt.target.reset();
+  closePopUp(photoPopUp);
+}
+
+
+render();
+
+editLink.addEventListener('click', () => {
+  nameInput.value = profileName.textContent;
+  aboutInput.value = profileAbout.textContent;
+  openPopUp(profilePopUp);
+});
+
+popupProfileCloseButton.addEventListener('click', () => closePopUp(profilePopUp));
+formProfileElement.addEventListener('submit', handlerEditForm);
+
+addLink.addEventListener('click', () => openPopUp(photoPopUp));
+popupPhotoCloseButton.addEventListener('click', () => closePopUp(photoPopUp));
+formPhotoElement.addEventListener('submit', handlerAddCard);
+
+popupImageCloseButton.addEventListener('click', () => closePopUp(imagePopUp));
