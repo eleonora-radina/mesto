@@ -57,7 +57,7 @@ function getElement(item) {
   cardImage.alt = item.name;
   cardName.textContent = item.name;
 
-  likeButton.addEventListener('click', likeCard); 
+  likeButton.addEventListener('click', likeCard);
   removeButton.addEventListener('click', removeCard);
   cardImage.addEventListener('click', () => {
     openPopUp(imagePopUp)
