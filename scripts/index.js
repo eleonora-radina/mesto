@@ -46,6 +46,8 @@ const popupPhotoCloseButton = photoPopUp.querySelector('.popup__close-button');
 const imagePopUp = document.querySelector('.popup_place_image');
 const popupImageCloseButton = imagePopUp.querySelector('.popup__close-button');
 
+const popupImage = document.querySelector('.popup__image');
+const popupName = document.querySelector('.popup__name');
 function getElement(item) {
   const templateElement = template.content.cloneNode(true);
   const removeButton = templateElement.querySelector('.card__trash');
@@ -61,8 +63,9 @@ function getElement(item) {
   removeButton.addEventListener('click', removeCard);
   cardImage.addEventListener('click', () => {
     openPopUp(imagePopUp)
-    document.querySelector('.popup__image').src = cardImage.src;
-    document.querySelector('.popup__name').textContent = cardName.textContent;
+    popupImage.src = cardImage.src;
+    popupImage.alt = cardName.textContent;
+    popupName.textContent = cardName.textContent;
   });
 
   return templateElement;
