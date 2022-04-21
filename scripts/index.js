@@ -31,7 +31,7 @@ const template = document.querySelector('.template');
 const editLink = document.querySelector('.profile__edit-button');
 const profilePopUp = document.querySelector('.popup_place_profile');
 const formProfileElement = profilePopUp.querySelector('.popup__form');
-const popupProfileCloseButton = profilePopUp.querySelector('.popup__close-button');
+const popupCloseButtons = document.querySelectorAll('.popup__close-button');
 
 const nameInput =  document.querySelector('.popup__form-item_el_name');
 const aboutInput = document.querySelector('.popup__form-item_el_about');
@@ -41,10 +41,8 @@ const profileAbout = document.querySelector('.profile__about');
 const addLink = document.querySelector('.profile__add-button');
 const photoPopUp = document.querySelector('.popup_place_cards');
 const formPhotoElement = photoPopUp.querySelector('.popup__form');
-const popupPhotoCloseButton = photoPopUp.querySelector('.popup__close-button');
 
 const imagePopUp = document.querySelector('.popup_place_image');
-const popupImageCloseButton = imagePopUp.querySelector('.popup__close-button');
 
 const popupImage = document.querySelector('.popup__image');
 const popupName = document.querySelector('.popup__name');
@@ -95,8 +93,6 @@ function closePopUp(popup) {
   popup.classList.remove('popup_opened');
 }
 
-
-
 function handlerEditForm(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
@@ -120,12 +116,12 @@ editLink.addEventListener('click', () => {
   aboutInput.value = profileAbout.textContent;
   openPopUp(profilePopUp);
 });
-
-popupProfileCloseButton.addEventListener('click', () => closePopUp(profilePopUp));
-formProfileElement.addEventListener('submit', handlerEditForm);
-
 addLink.addEventListener('click', () => openPopUp(photoPopUp));
-popupPhotoCloseButton.addEventListener('click', () => closePopUp(photoPopUp));
+
+formProfileElement.addEventListener('submit', handlerEditForm);
 formPhotoElement.addEventListener('submit', handlerAddCard);
 
-popupImageCloseButton.addEventListener('click', () => closePopUp(imagePopUp));
+popupCloseButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopUp(popup));
+});
