@@ -1,6 +1,7 @@
-.cards__item {
+.card {
   list-style: none;
   max-width: 282px;
   border-radius: 10px;
   background-color: #fff;
+  position: relative;
 }

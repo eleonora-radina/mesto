@@ -85,20 +85,43 @@ function openPopUp(popup) {
   popup.classList.add('popup_opened');
 }
 
-function overlayClose(event) {
-  if (event.currentTarget === event.target) {
-    togglePopUp();
-  }
+function closePopUp(popup) {
+  popup.classList.remove('popup_opened');
 }
 
-editLink.addEventListener('click', togglePopUp);
-popupCloseButton.addEventListener('click', togglePopUp);
-popupWindow.addEventListener('click', overlayClose);
 
-function formSubmitHandler(evt) {
+
+function handlerEditForm(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileAbout.textContent = aboutInput.value;
-  togglePopUp();
+  closePopUp(profilePopUp);
 }
-formElement.addEventListener('submit', formSubmitHandler);
+
+function handlerAddCard(evt) {
+  evt.preventDefault();
+  const titleInput =  document.querySelector('.popup__form-item_el_title').value;
+  const linkInput = document.querySelector('.popup__form-item_el_link').value;
+  const element = getElement({name: titleInput, link: linkInput});
+  listContainer.prepend(element);
+  evt.target.reset();
+  closePopUp(photoPopUp);
+}
+
+
+render();
+
+editLink.addEventListener('click', () => {
+  nameInput.value = profileName.textContent;
+  aboutInput.value = profileAbout.textContent;
+  openPopUp(profilePopUp);
+});
+
+popupProfileCloseButton.addEventListener('click', () => closePopUp(profilePopUp));
+formProfileElement.addEventListener('submit', handlerEditForm);
+
+addLink.addEventListener('click', () => openPopUp(photoPopUp));
+popupPhotoCloseButton.addEventListener('click', () => closePopUp(photoPopUp));
+formPhotoElement.addEventListener('submit', handlerAddCard);
+
+popupImageCloseButton.addEventListener('click', () => closePopUp(imagePopUp));
