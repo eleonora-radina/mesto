@@ -48,6 +48,9 @@ const popupImageCloseButton = imagePopUp.querySelector('.popup__close-button');
 
 const popupImage = document.querySelector('.popup__image');
 const popupName = document.querySelector('.popup__name');
+const titleInput =  document.querySelector('.popup__form-item_el_title');
+const linkInput = document.querySelector('.popup__form-item_el_link');
+
 function getElement(item) {
   const templateElement = template.content.cloneNode(true);
   const removeButton = templateElement.querySelector('.card__trash');
@@ -103,9 +106,7 @@ function handlerEditForm(evt) {
 
 function handlerAddCard(evt) {
   evt.preventDefault();
-  const titleInput =  document.querySelector('.popup__form-item_el_title').value;
-  const linkInput = document.querySelector('.popup__form-item_el_link').value;
-  const element = getElement({name: titleInput, link: linkInput});
+  const element = getElement({name: titleInput.value, link: linkInput.value});
   listContainer.prepend(element);
   evt.target.reset();
   closePopUp(photoPopUp);
