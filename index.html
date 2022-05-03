@@ -40,8 +40,26 @@
       <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" name="edit-profile-form">
-        <input class="popup__form-item popup__form-item_el_name" type="text" placeholder="Ваше имя" name="name" required autocomplete="off">
-        <input class="popup__form-item popup__form-item_el_about" type="text" placeholder="О себе" name="about" required autocomplete="off">
+        <input 
+          class="popup__form-item popup__form-item_el_name" 
+          type="text" 
+          placeholder="Ваше имя" 
+          name="name" 
+          required 
+          autocomplete="off"
+          minlength="2"
+          maxlength="40"
+        >
+        <input 
+          class="popup__form-item popup__form-item_el_about" 
+          type="text" 
+          placeholder="О себе" 
+          name="about" 
+          required 
+          autocomplete="off"
+          minlength="2"
+          maxlength="200"
+        >
         <button class="popup__save-button" type="submit" aria-label="Сохранить">Сохранить</button>
       </form>
     </div>
@@ -52,8 +70,24 @@
       <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" name="edit-profile-form">
-        <input class="popup__form-item popup__form-item_el_title" type="text" placeholder="Название" name="title" required autocomplete="off">
-        <input class="popup__form-item popup__form-item_el_link" type="text" placeholder="Ссылка на картинку" name="link" required autocomplete="off">
+        <input 
+          class="popup__form-item popup__form-item_el_title" 
+          type="text" 
+          placeholder="Название" 
+          name="title"          
+          minlength="2"
+          maxlength="30"
+          required 
+          autocomplete="off"
+        >
+        <input 
+          class="popup__form-item popup__form-item_el_link" 
+          type="url" 
+          placeholder="Ссылка на картинку" 
+          name="link" 
+          required 
+          autocomplete="off"
+        >
         <button class="popup__save-button" type="submit" aria-label="Сохранить">Создать</button>
       </form>
     </div>
