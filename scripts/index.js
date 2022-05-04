@@ -27,6 +27,7 @@ const initialCards = [
 
 const listContainer = document.querySelector('.cards');
 const template = document.querySelector('.template');
+const popupWindows = document.querySelectorAll('.popup'); 
 
 const editLink = document.querySelector('.profile__edit-button');
 const profilePopUp = document.querySelector('.popup_place_profile');
@@ -87,10 +88,25 @@ function removeCard(evt) {
 
 function openPopUp(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', escClose);
 }
 
 function closePopUp(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', escClose);
+}
+
+function overlayClose(evt, popup) {
+  if (evt.currentTarget === evt.target) {
+    closePopUp(popup);
+  }
+}
+
+function escClose(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopUp(popupOpened);
+  }
 }
 
 function handlerEditForm(evt) {
@@ -124,4 +140,8 @@ formPhotoElement.addEventListener('submit', handlerAddCard);
 popupCloseButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopUp(popup));
+});
+
+popupWindows.forEach((popupWindow) => {
+  popupWindow.addEventListener('click', (evt) => overlayClose(evt, evt.target));
 });
