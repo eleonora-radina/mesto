@@ -25,6 +25,15 @@ const initialCards = [
   }
 ];
 
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__form-item',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input-error',
+  errorClass: 'popup__error_visible'
+}
+
 const listContainer = document.querySelector('.cards');
 const template = document.querySelector('.template');
 const popupWindows = document.querySelectorAll('.popup'); 
@@ -124,6 +133,15 @@ function handlerAddCard(evt) {
   closePopUp(photoPopUp);
 }
 
+function deleteErrors(popup) {
+  const inputs = popup.querySelectorAll('.popup__form-item');
+  const errors = popup.querySelectorAll('.popup__input-error');
+  Array.from(inputs).forEach((input) => {
+    Array.from(errors).forEach((error) => {
+      hideError(input, error);
+    });
+  });
+}
 
 render();
 
@@ -131,8 +149,14 @@ editLink.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   aboutInput.value = profileAbout.textContent;
   openPopUp(profilePopUp);
+  deleteErrors(profilePopUp);
+  toggleButtonState(profilePopUp.querySelector(config.formSelector), config);
 });
-addLink.addEventListener('click', () => openPopUp(photoPopUp));
+
+addLink.addEventListener('click', () => {
+  openPopUp(photoPopUp); 
+  toggleButtonState(photoPopUp.querySelector(config.formSelector), config);
+});
 
 formProfileElement.addEventListener('submit', handlerEditForm);
 formPhotoElement.addEventListener('submit', handlerAddCard);
