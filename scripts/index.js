@@ -25,8 +25,18 @@ const initialCards = [
   }
 ];
 
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__form-item',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input-error',
+  errorClass: 'popup__error_visible'
+}
+
 const listContainer = document.querySelector('.cards');
 const template = document.querySelector('.template');
+const popupWindows = document.querySelectorAll('.popup'); 
 
 const editLink = document.querySelector('.profile__edit-button');
 const profilePopUp = document.querySelector('.popup_place_profile');
@@ -87,10 +97,25 @@ function removeCard(evt) {
 
 function openPopUp(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', escClose);
 }
 
 function closePopUp(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', escClose);
+}
+
+function overlayClose(evt, popup) {
+  if (evt.currentTarget === evt.target) {
+    closePopUp(popup);
+  }
+}
+
+function escClose(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopUp(popupOpened);
+  }
 }
 
 function handlerEditForm(evt) {
@@ -108,6 +133,15 @@ function handlerAddCard(evt) {
   closePopUp(photoPopUp);
 }
 
+function deleteErrors(popup) {
+  const inputs = popup.querySelectorAll('.popup__form-item');
+  const errors = popup.querySelectorAll('.popup__input-error');
+  Array.from(inputs).forEach((input) => {
+    Array.from(errors).forEach((error) => {
+      hideError(input, error);
+    });
+  });
+}
 
 render();
 
@@ -115,8 +149,14 @@ editLink.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   aboutInput.value = profileAbout.textContent;
   openPopUp(profilePopUp);
+  deleteErrors(profilePopUp);
+  toggleButtonState(profilePopUp.querySelector(config.formSelector), config);
 });
-addLink.addEventListener('click', () => openPopUp(photoPopUp));
+
+addLink.addEventListener('click', () => {
+  openPopUp(photoPopUp); 
+  toggleButtonState(photoPopUp.querySelector(config.formSelector), config);
+});
 
 formProfileElement.addEventListener('submit', handlerEditForm);
 formPhotoElement.addEventListener('submit', handlerAddCard);
@@ -124,4 +164,8 @@ formPhotoElement.addEventListener('submit', handlerAddCard);
 popupCloseButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopUp(popup));
+});
+
+popupWindows.forEach((popupWindow) => {
+  popupWindow.addEventListener('click', (evt) => overlayClose(evt, evt.target));
 });
