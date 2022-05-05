@@ -1,10 +1,18 @@
-function toggleButtonState (form, config) {
-  const button = form.querySelector(config.submitButtonSelector);
+function deleteErrors(popup) {
+  const inputs = popup.querySelectorAll('.popup__form-item');
+  const errors = popup.querySelectorAll('.popup__input-error');
+  Array.from(inputs).forEach((input) => {
+    Array.from(errors).forEach((error) => {
+      hideError(input, error);
+    });
+  });
+}
+
+function toggleButtonState (form, button, config) {
   const validResult = !form.checkValidity();
   button.disabled = validResult;
   button.classList.toggle(config.inactiveButtonClass, validResult);
 }
-
 
 function hideError(input, error) {
   error.textContent = '';
@@ -24,18 +32,19 @@ function checkInputValidity(input, error) {
     }
 }
 
-function handleFormInput(event, form, config) {
+function handleFormInput(event, form, button, config) {
   const inputElement = event.target;
   const errorElement = document.querySelector(`.${inputElement.id}-error`);
 
   checkInputValidity(inputElement, errorElement);
-  toggleButtonState(form, config);
+  toggleButtonState(form, button, config);
 }
 
 function setEventListener(form, config) {
   const inputList = form.querySelectorAll(config.inputSelector);
+  const button = form.querySelector(config.submitButtonSelector);
   Array.from(inputList).forEach((input) => {
-    input.addEventListener('input', (event) => handleFormInput(event, form, config));
+    input.addEventListener('input', (event) => handleFormInput(event, form, button, config));
   });
 }
 
