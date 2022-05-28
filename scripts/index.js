@@ -61,8 +61,8 @@ const titleInput =  document.querySelector('.popup__form-item_el_title');
 const linkInput = document.querySelector('.popup__form-item_el_link');
 
 
-const profileValidator = new FormValidator(config, profilePopUp);
-const photoValidator = new FormValidator(config, photoPopUp);
+const profileValidator = new FormValidator(config, formProfileElement);
+const photoValidator = new FormValidator(config, formPhotoElement);
 profileValidator.enableValidation();
 photoValidator.enableValidation();
 
@@ -78,7 +78,7 @@ initialCards.forEach((item) => {
   listContainer.append(createCard(item));
 });
 
-function handlerAddCard(evt) {
+function addCard(evt) {
   evt.preventDefault();
   const itemCard = {name: titleInput.value, link: linkInput.value};
   listContainer.prepend(createCard(itemCard));
@@ -103,9 +103,9 @@ function closePopUp(popup) {
   document.removeEventListener('keydown', escClose);
 }
 
-function overlayClose(evt, popup) {
+function overlayClose(evt) {
   if ((evt.currentTarget === evt.target) || (evt.target.classList.contains('popup__close-button'))) {
-    closePopUp(popup);
+    closePopUp(evt.currentTarget);
   }
 }
 
@@ -116,7 +116,7 @@ function escClose(evt) {
   }
 }
 
-function handlerEditForm(evt) {
+function editForm(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileAbout.textContent = aboutInput.value;
@@ -126,18 +126,19 @@ function handlerEditForm(evt) {
 buttonEdit.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   aboutInput.value = profileAbout.textContent;
-  profileValidator.deleteErrors(profilePopUp);
+  profileValidator.deleteErrors();
   openPopUp(profilePopUp);
 });
 
 buttonAdd.addEventListener('click', () => {
+  photoValidator.deleteErrors();
   openPopUp(photoPopUp);
 });
 
-formPhotoElement.addEventListener('submit', handlerAddCard);
-formProfileElement.addEventListener('submit', handlerEditForm);
+formPhotoElement.addEventListener('submit', addCard);
+formProfileElement.addEventListener('submit', editForm);
 
 
 popupWindows.forEach((popupWindow) => {
-  popupWindow.addEventListener('click', (evt) => overlayClose(evt, popupWindow));
+  popupWindow.addEventListener('click', (evt) => overlayClose(evt));
 });
