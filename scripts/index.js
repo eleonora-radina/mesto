@@ -1,5 +1,9 @@
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
+import { PopupWithForm } from "./PopupWithForm.js";
+import { PopupWithImage } from "./PopupWithImage.js";
+import { Section } from "./Section.js";
+import { UserInfo } from "./UserInfo.js";
 
 const initialCards = [
   {
@@ -60,85 +64,78 @@ const formPhotoElement = photoPopUp.querySelector('.popup__form');
 const titleInput =  document.querySelector('.popup__form-item_el_title');
 const linkInput = document.querySelector('.popup__form-item_el_link');
 
-
+//Валидация
 const profileValidator = new FormValidator(config, formProfileElement);
 const photoValidator = new FormValidator(config, formPhotoElement);
 profileValidator.enableValidation();
 photoValidator.enableValidation();
 
+
+//создания юзера
+const profileInfo = new UserInfo(
+  { nameSelector: '.profile__name',
+    aboutSelector: '.profile__about'}
+);
+
+//Создание карточек
+function openImagePopup(item) {
+  const popupWithImage = new PopupWithImage('.popup_place_image');
+  popupWithImage.open(item);
+}
+
 function createCard(item) {
   const card = new Card(item, '.template', () => {
-    openCard(item);
-  });
-  const cardElement = card.generateCard();
-  return cardElement;
+    openImagePopup(item);
+    });
+    const cardElement = card.generateCard();
+    return cardElement;
 }
 
-initialCards.forEach((item) => {
-  listContainer.append(createCard(item));
+const initialCardsList = new Section (
+  { items: initialCards, 
+    renderer: (item) => { initialCardsList.addItem(createCard(item)); }
+  }, 
+  '.cards');
+
+initialCardsList.renderItems();
+
+
+function addCard() {
+  const itemCard = { name: titleInput.value, link: linkInput.value };
+  initialCardsList.addItem(createCard(itemCard));
+}
+
+
+// попап с карточкой
+const cardFormPopup = new PopupWithForm(
+  { popupSelector: '.popup_place_cards', 
+    handleSubmitForm: () => {
+      addCard();
+      cardFormPopup.close(); }
 });
 
-function addCard(evt) {
-  evt.preventDefault();
-  const itemCard = {name: titleInput.value, link: linkInput.value};
-  listContainer.prepend(createCard(itemCard));
-  formPhotoElement.reset();
-  closePopUp(photoPopUp);
-}
-
-function openPopUp(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', escClose);
-}
-
-function openCard(item) {
-  popupImage.src = item.link;
-  popupImage.alt = item.name;
-  popupName.textContent = item.name;
-  openPopUp(imagePopUp);
-}
-
-function closePopUp(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', escClose);
-}
-
-function overlayClose(evt) {
-  if ((evt.currentTarget === evt.target) || (evt.target.classList.contains('popup__close-button'))) {
-    closePopUp(evt.currentTarget);
-  }
-}
-
-function escClose(evt) {
-  if (evt.key === 'Escape') {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopUp(popupOpened);
-  }
-}
-
-function editForm(evt) {
-  evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileAbout.textContent = aboutInput.value;
-  closePopUp(profilePopUp);
-}
-
-buttonEdit.addEventListener('click', () => {
-  nameInput.value = profileName.textContent;
-  aboutInput.value = profileAbout.textContent;
-  profileValidator.deleteErrors();
-  openPopUp(profilePopUp);
-});
+cardFormPopup.setEventListeners();
 
 buttonAdd.addEventListener('click', () => {
   photoValidator.deleteErrors();
-  openPopUp(photoPopUp);
+  cardFormPopup.open();
 });
 
-formPhotoElement.addEventListener('submit', addCard);
-formProfileElement.addEventListener('submit', editForm);
 
+// попап с профилем
+const profileFormPopup = new PopupWithForm(
+  { popupSelector: '.popup_place_profile', 
+    handleSubmitForm: (item) => { 
+      profileInfo.setUserInfo(item);
+      profileFormPopup.close(); }
+  }
+);
 
-popupWindows.forEach((popupWindow) => {
-  popupWindow.addEventListener('click', (evt) => overlayClose(evt));
+buttonEdit.addEventListener('click', () => {
+  photoValidator.deleteErrors();
+  const info = profileInfo.getUserInfo();
+  nameInput.value = info.name;
+  aboutInput.value = info.about;
+  profileFormPopup.open();
 });
+
