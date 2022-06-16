@@ -1,15 +1,15 @@
-import { Card } from "./components/Card.js";
-import { FormValidator } from "./components/FormValidator.js";
-import { PopupWithForm } from "./components/PopupWithForm.js";
-import { PopupWithImage } from "./components/PopupWithImage.js";
-import { Section } from "./components/Section.js";
-import { UserInfo } from "./components/UserInfo.js";
-import './pages/index.css';
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
+import { PopupWithImage } from "../components/PopupWithImage.js";
+import { Section } from "../components/Section.js";
+import { UserInfo } from "../components/UserInfo.js";
+import './index.css';
 
 import {
   initialCards, config, buttonEdit, profilePopUp, formProfileElement, 
   nameInput, aboutInput, buttonAdd, photoPopUp, formPhotoElement, titleInput, linkInput
-} from './utils/constants.js';
+} from '../utils/constants.js';
 
 
 const profileValidator = new FormValidator(config, formProfileElement);
@@ -23,19 +23,14 @@ const profileInfo = new UserInfo(
     aboutSelector: '.profile__about'}
 );
 
-
-
-function openImagePopup(item) {
-  const popupWithImage = new PopupWithImage('.popup_place_image');
-  popupWithImage.open(item);
-}
+const popupWithImage = new PopupWithImage('.popup_place_image');
+popupWithImage.setEventListeners();
 
 function createCard(item) {
   const card = new Card(item, '.template', () => {
-    openImagePopup(item);
-    });
-    const cardElement = card.generateCard();
-    return cardElement;
+    popupWithImage.open(item);
+  });
+    return card.generateCard();
 }
 
 const initialCardsList = new Section (
@@ -48,26 +43,23 @@ initialCardsList.renderItems();
 
 
 
-function addCard() {
-  const itemCard = { name: titleInput.value, link: linkInput.value };
+function addCard(item) {
+  const itemCard = { name: item.title, link: item.link };
   initialCardsList.addItem(createCard(itemCard));
 }
 
 const cardFormPopup = new PopupWithForm(
   { popupSelector: '.popup_place_cards', 
-    handleSubmitForm: () => {
-      addCard();
+    handleSubmitForm: (item) => {
+      addCard(item);
       cardFormPopup.close(); }
 });
-
 cardFormPopup.setEventListeners();
 
 buttonAdd.addEventListener('click', () => {
   photoValidator.deleteErrors();
   cardFormPopup.open();
 });
-
-
 
 const profileFormPopup = new PopupWithForm(
   { popupSelector: '.popup_place_profile', 
@@ -78,10 +70,11 @@ const profileFormPopup = new PopupWithForm(
 );
 
 buttonEdit.addEventListener('click', () => {
-  photoValidator.deleteErrors();
+  profileValidator.deleteErrors();
   const info = profileInfo.getUserInfo();
   nameInput.value = info.name;
   aboutInput.value = info.about;
+  profileFormPopup.setEventListeners();
   profileFormPopup.open();
 });
 
