@@ -26,11 +26,7 @@ export class FormValidator {
   }
 
   _checkInputValidity(input) {
-    if (input.validity.valid) {
-      this._hideError(input);
-    } else {
-      this._showError(input);
-      }
+    input.validity.valid ? this._hideError(input) : this._showError(input);
   }
 
   _toggleButtonState() {
