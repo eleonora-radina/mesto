@@ -1,143 +1,102 @@
 export class Api {
-  constructor(url, key) {
-    this._url = url;
-    this._key = key;
+  constructor({ baseUrl, headers }) {
+    this._url = baseUrl;
+    this._headers = headers;
   }
 
+  _getResponseData(res) {
+    if(res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  } 
+
   getUser() {
-    return fetch(`https://${this._url}users/me`, {
-      headers: {
-        authorization: this._key,
-        'Content-Type': 'application/json'
-      }
+    return fetch(`${this._url}/users/me`, {
+      headers: this._headers
     })
     .then((res) => { 
-      if(res.ok) {
-        return res.json() 
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+      return this._getResponseData(res)
+    });
   }
 
   editUserInfo(data) {
-    return fetch(`https://${this._url}users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._key,
-       'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: data.name,
         about: data.about
       })
     })
     .then((res) => { 
-        if(res.ok) {
-          return res.json() 
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      return this._getResponseData(res)
+    });
   }
 
   editAvatar(data) {
-    return fetch(`https://mesto.${this._url}users/me/avatar`, {
+    return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._key,
-       'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         avatar: data.link,
       })
     })
     .then((res) => { 
-        if(res.ok) {
-          return res.json() 
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      return this._getResponseData(res)
+    });
   }
   
   getCards() {
-    return fetch(`https://mesto.${this._url}cards` , {
-      headers: {
-        authorization: this._key,
-        'Content-Type': 'application/json'
-      }
+    return fetch(`${this._url}/cards` , {
+      headers: this._headers
     })
     .then((res) => { 
-      if(res.ok) {
-        return res.json() 
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+      return this._getResponseData(res)
+    });
   }
 
   addNewCard(data) {
-    return fetch(`https://mesto.${this._url}cards`, {
+    return fetch(`${this._url}/cards`, {
       method: 'POST',
-      headers: {
-        authorization: this._key,
-       'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: data.title,
         link: data.link
       })
     })
     .then((res) => { 
-        if(res.ok) {
-          return res.json() 
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      return this._getResponseData(res)
+    });
   }
 
   deleteCard(cardId) {
-    return fetch(`https://mesto.${this._url}cards/${cardId}`, {
+    return fetch(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._key,
-       'Content-Type': 'application/json'
-      }
+      headers: this._headers
     })
     .then((res) => { 
-        if(res.ok) {
-          return res.json() 
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      return this._getResponseData(res)
+    });
   }
 
   addLike(cardId) {
-    return fetch(`https://mesto.${this._url}cards/${cardId}/likes`, {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'PUT',
-      headers: {
-        authorization: this._key,
-       'Content-Type': 'application/json'
-      },
+      headers: this._headers,
     })
     .then((res) => { 
-        if(res.ok) {
-          return res.json() 
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      return this._getResponseData(res)
+    });
   }
 
   deleteLike(cardId) {
-    return fetch(`https://mesto.${this._url}cards/${cardId}/likes`, {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._key,
-       'Content-Type': 'application/json'
-      },
+      headers: this._headers
     })
     .then((res) => { 
-        if(res.ok) {
-          return res.json() 
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })  
+      return this._getResponseData(res)
+    });
   }
 }

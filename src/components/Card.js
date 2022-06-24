@@ -47,7 +47,7 @@ export class Card {
   _setEventListeners() {
     this._buttonLike.addEventListener('click', () => { this._handleLikeClick() });
     this._cardImage.addEventListener('click', () => { this._handleImageClick() });;
-    this._buttonTrash.addEventListener('click', () => { this._handleDeleteClick() });
+    this._buttonTrash.addEventListener('click', () => { this._handleDeleteClick(this) });
   }
   
   generateCard(id) {

@@ -2,6 +2,13 @@
     position: relative;
     border-radius: 50%;
     height: 120px;
+    grid-area: avatar;
+  }
+
+  @media (max-width: 785px) {
+    .profile__avatar-zone {
+      margin: 42px auto 26px;
+    }
   }
   
   .profile__avatar-zone::before {
